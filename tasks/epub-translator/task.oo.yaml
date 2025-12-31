@@ -1,0 +1,111 @@
+inputs_def:
+  - handle: source_epub
+    description: "Path to the source EPUB file to translate"
+    json_schema:
+      type: string
+      ui:widget: file
+      ui:options:
+        filters:
+          - name: EPUB
+            extensions:
+              - epub
+    nullable: false
+
+  - handle: target_language
+    description: "Target language for translation"
+    json_schema:
+      type: string
+      enum:
+        - English
+        - Chinese
+        - Spanish
+        - French
+        - German
+        - Japanese
+        - Korean
+        - Portuguese
+        - Russian
+        - Italian
+        - Arabic
+        - Hindi
+    value: Chinese
+    nullable: false
+
+  - handle: output_path
+    description: "Path where the translated EPUB will be saved (defaults to session
+      directory)"
+    json_schema:
+      type: string
+      ui:widget: save
+      ui:options:
+        filters:
+          - name: EPUB
+            extensions:
+              - epub
+        excludeAll: true
+    value:
+    nullable: true
+
+  - handle: llm
+    description: "LLM model configuration for translation"
+    json_schema:
+      ui:widget: llm::model
+      ui:options:
+        title: Model
+    value:
+      model: oomol-chat
+      temperature: 0.5
+      top_p: 1
+      max_tokens: 128000
+    nullable: false
+
+  - group: Advanced Options
+    collapsed: true
+
+  - handle: custom_prompt
+    description: "Custom translation instructions (optional)"
+    json_schema:
+      type: string
+      ui:widget: text
+    nullable: true
+
+  - handle: max_group_tokens
+    description: "Maximum tokens per translation batch"
+    json_schema:
+      type: integer
+      minimum: 100
+      maximum: 4000
+    value: 1200
+    nullable: false
+
+  - handle: max_retries
+    description: "Maximum number of retries for failed translations"
+    json_schema:
+      type: integer
+      minimum: 1
+      maximum: 10
+    value: 5
+    nullable: false
+
+outputs_def:
+  - handle: translated_file
+    description: "Path to the translated EPUB file"
+    json_schema:
+      type: string
+      ui:widget: file
+
+  - handle: success
+    description: "Whether the translation was successful"
+    json_schema:
+      type: boolean
+
+executor:
+  name: python
+  options:
+    entry: __init__.py
+    spawn: false
+
+title: "EPUB Translator"
+icon: ":carbon:translate:"
+description: "Translate EPUB files to different languages using LLM, preserving
+  original formatting and creating bilingual output"

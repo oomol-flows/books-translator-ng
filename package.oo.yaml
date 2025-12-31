@@ -1,0 +1,7 @@
+version: 1.0.0
+scripts:
+  bootstrap: |
+    npm install
+    poetry install --no-root
+icon: ./icon.png
+name: books-translator

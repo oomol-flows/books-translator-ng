@@ -1,14 +1,13 @@
 title: "%test-epub-translator%"
 nodes:
-  - node_id: epub-translator#1
-    task: self::epub-translator
+  - node_id: epub-translator#2
+    title: "EPUB 翻译器 #2"
     inputs_from:
       - handle: source_epub
-        value: /oomol-driver/oomol-storage/book_source/2512.epub
       - handle: target_language
-        value: "Chinese"
+        value: Chinese
       - handle: output_path
-        value: "/oomol-driver/oomol-storage/2512-translated-2.epub"
+        value: null
       - handle: llm
         value:
           model: oomol-chat
@@ -16,8 +15,19 @@ nodes:
           top_p: 1
           max_tokens: 128000
       - handle: custom_prompt
-        value: null
+        value:
       - handle: max_group_tokens
-        value: 1200
+        value:
       - handle: max_retries
-        value: 5
+        value:
+      - handle: timeout
+        value: null
+      - handle: temperature
+        value: null
+      - handle: top_p
+        value: null
+      - handle: retry_times
+        value: null
+      - handle: retry_interval_seconds
+        value: null
+    task: self::epub-translator

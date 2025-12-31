@@ -7,8 +7,13 @@ class Inputs(typing.TypedDict):
     output_path: str | None
     llm: LLMModelOptions
     custom_prompt: str | None
-    max_group_tokens: int
-    max_retries: int
+    max_group_tokens: int | None
+    max_retries: int | None
+    timeout: float | None
+    temperature: float | None
+    top_p: float | None
+    retry_times: int | None
+    retry_interval_seconds: float | None
 class Outputs(typing.TypedDict):
     translated_file: typing.NotRequired[str]
     success: typing.NotRequired[bool]
@@ -31,8 +36,17 @@ async def main(params: Inputs, context: Context) -> Outputs:
         Dictionary containing the translated file path and success status
     """
     try:
-        # Get LLM configuration
+        # Get LLM configuration with fallback to recommended defaults
         llm_config = params["llm"]
+
+        # Use user-provided values if available, otherwise use recommended defaults
+        timeout = params.get("timeout") if params.get("timeout") is not None else 360.0
+        temperature = params.get("temperature") if params.get("temperature") is not None else 0.3
+        top_p = params.get("top_p") if params.get("top_p") is not None else 0.9
+        retry_times = params.get("retry_times") if params.get("retry_times") is not None else 10
+        retry_interval = params.get("retry_interval_seconds") if params.get("retry_interval_seconds") is not None else 0.75
+        max_retries = params.get("max_retries") if params.get("max_retries") is not None else 10
+        max_group_tokens = params.get("max_group_tokens") if params.get("max_group_tokens") is not None else 1200
 
         # Initialize LLM client with OOMOL credentials
         llm = LLM(
@@ -41,9 +55,11 @@ async def main(params: Inputs, context: Context) -> Outputs:
             model=llm_config.get("model", "oomol-chat"),
             token_encoding="o200k_base",
             cache_path=None,  # Disable caching
-            timeout=300.0,
-            retry_times=params["max_retries"],
-            retry_interval_seconds=6.0,
+            timeout=timeout,
+            temperature=temperature,
+            top_p=top_p,
+            retry_times=retry_times,
+            retry_interval_seconds=retry_interval,
         )
 
         # Define progress callback
@@ -78,8 +94,8 @@ async def main(params: Inputs, context: Context) -> Outputs:
             target_path=output_path,
             target_language=params["target_language"],
             user_prompt=user_prompt if user_prompt else None,
-            max_retries=params["max_retries"],
-            max_group_tokens=params["max_group_tokens"],
+            max_retries=max_retries,
+            max_group_tokens=max_group_tokens,
             on_progress=on_progress,
         )
 

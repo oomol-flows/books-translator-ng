@@ -4,7 +4,7 @@ scripts:
     npm install
     poetry install --no-root
 icon: ./icon.png
-name: books_translator
+name: books-translator
 displayName: "%display-name%"
 description: "%description%"
 repository: https://github.com/oomol-flows/books-translator-ng.git

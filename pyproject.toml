@@ -1,6 +1,6 @@
 [project]
-name = "epub-translator-flow"
-version = "0.1.0"
+name = "books-translator"
+version = "1.0.0"
 description = ""
 authors = [
     {name = "shaun",email = "beingswu@gmail.com"}

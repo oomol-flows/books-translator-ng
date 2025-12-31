@@ -1,6 +1,6 @@
 inputs_def:
   - handle: source_epub
-    description: "Path to the source EPUB file to translate"
+    description: "%path-to-the-source-epub-file-to-translate%"
     json_schema:
       type: string
       ui:widget: file
@@ -12,7 +12,7 @@ inputs_def:
     nullable: false
 
   - handle: target_language
-    description: "Target language for translation"
+    description: "%target-language-for-translation%"
     json_schema:
       type: string
       enum:
@@ -32,8 +32,7 @@ inputs_def:
     nullable: false
 
   - handle: output_path
-    description: "Path where the translated EPUB will be saved (defaults to session
-      directory)"
+    description: "%path-where-the-translated-epub-will-be-saved-defaults-to-session%"
     json_schema:
       type: string
       ui:widget: save
@@ -47,7 +46,7 @@ inputs_def:
     nullable: true
 
   - handle: llm
-    description: "LLM model configuration for translation"
+    description: "%llm-model-configuration-for-translation%"
     json_schema:
       ui:widget: llm::model
       ui:options:
@@ -63,14 +62,14 @@ inputs_def:
     collapsed: true
 
   - handle: custom_prompt
-    description: "Custom translation instructions (optional)"
+    description: "%custom-translation-instructions-optional%"
     json_schema:
       type: string
       ui:widget: text
     nullable: true
 
   - handle: max_group_tokens
-    description: "Maximum tokens per translation batch"
+    description: "%maximum-tokens-per-translation-batch%"
     json_schema:
       type: integer
       minimum: 100
@@ -79,7 +78,7 @@ inputs_def:
     nullable: false
 
   - handle: max_retries
-    description: "Maximum number of retries for failed translations"
+    description: "%maximum-number-of-retries-for-failed-translations%"
     json_schema:
       type: integer
       minimum: 1
@@ -89,13 +88,13 @@ inputs_def:
 
 outputs_def:
   - handle: translated_file
-    description: "Path to the translated EPUB file"
+    description: "%path-to-the-translated-epub-file%"
     json_schema:
       type: string
       ui:widget: file
 
   - handle: success
-    description: "Whether the translation was successful"
+    description: "%whether-the-translation-was-successful%"
     json_schema:
       type: boolean
 
@@ -105,7 +104,6 @@ executor:
     entry: __init__.py
     spawn: false
 
-title: "EPUB Translator"
+title: "%epub-translator%"
 icon: ":carbon:translate:"
-description: "Translate EPUB files to different languages using LLM, preserving
-  original formatting and creating bilingual output"
+description: "%translate-epub-files-to-different-languages-using-llm-preserving%"

@@ -1,4 +1,4 @@
-title: Test EPUB Translator
+title: "%test-epub-translator%"
 nodes:
   - node_id: epub-translator#1
     task: self::epub-translator

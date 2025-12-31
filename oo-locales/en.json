@@ -1,0 +1,16 @@
+{
+  "display-name": "Books Translator",
+  "description": "Transform digital EPUB books into any language while preserving formatting and creating bilingual output for easy reading.",
+  "test-epub-translator": "Test EPUB Translator",
+  "epub-translator": "EPUB Translator",
+  "translate-epub-files-to-different-languages-using-llm-preserving": "Translate EPUB files to different languages using LLM, preserving original formatting and creating bilingual output",
+  "path-to-the-source-epub-file-to-translate": "Path to the source EPUB file to translate",
+  "target-language-for-translation": "Target language for translation",
+  "path-where-the-translated-epub-will-be-saved-defaults-to-session": "Path where the translated EPUB will be saved (defaults to session directory)",
+  "llm-model-configuration-for-translation": "LLM model configuration for translation",
+  "custom-translation-instructions-optional": "Custom translation instructions (optional)",
+  "maximum-tokens-per-translation-batch": "Maximum tokens per translation batch",
+  "maximum-number-of-retries-for-failed-translations": "Maximum number of retries for failed translations",
+  "path-to-the-translated-epub-file": "Path to the translated EPUB file",
+  "whether-the-translation-was-successful": "Whether the translation was successful"
+}

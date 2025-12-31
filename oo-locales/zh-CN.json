@@ -1,0 +1,16 @@
+{
+  "display-name": "电子书翻译",
+  "description": "将数字 EPUB 书籍转换为任意语言，同时保持格式，并创建双语输出，以 便于阅读。",
+  "test-epub-translator": "测试 EPUB 翻译器",
+  "epub-translator": "EPUB 翻译器",
+  "translate-epub-files-to-different-languages-using-llm-preserving": "使用 LLM 将 EPUB 文件翻译成不同语言，保留原始格式并生成双语输出",
+  "path-to-the-source-epub-file-to-translate": "要翻译的源 EPUB 文件路径",
+  "target-language-for-translation": "用于翻译的目标语言",
+  "path-where-the-translated-epub-will-be-saved-defaults-to-session": "翻译后的 EPUB 将被保存的路径（默认为会话目录）",
+  "llm-model-configuration-for-translation": "用于翻译的 LLM 模型配置",
+  "custom-translation-instructions-optional": "自定义翻译说明（可选）",
+  "maximum-tokens-per-translation-batch": "每批次最大 tokens 数",
+  "maximum-number-of-retries-for-failed-translations": "失败翻译的最大重试次数",
+  "path-to-the-translated-epub-file": "已翻译 EPUB 文件的路径",
+  "whether-the-translation-was-successful": "翻译是否成功"
+}

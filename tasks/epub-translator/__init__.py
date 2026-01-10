@@ -4,6 +4,7 @@ from oocana import LLMModelOptions
 class Inputs(typing.TypedDict):
     source_epub: str
     target_language: typing.Literal["English", "Chinese", "Spanish", "French", "German", "Japanese", "Korean", "Portuguese", "Russian", "Italian", "Arabic", "Hindi"]
+    submit_mode: typing.Literal["Bilingual (Recommended)", "Single Language", "Bilingual Inline"]
     output_path: str | None
     llm: LLMModelOptions
     custom_prompt: str | None
@@ -21,7 +22,7 @@ class Outputs(typing.TypedDict):
 
 from oocana import Context
 from pathlib import Path
-from epub_translator import LLM, translate
+from epub_translator import LLM, translate, SubmitKind
 
 
 async def main(params: Inputs, context: Context) -> Outputs:
@@ -47,7 +48,16 @@ async def main(params: Inputs, context: Context) -> Outputs:
         retry_interval = params.get("retry_interval_seconds") if params.get("retry_interval_seconds") is not None else 0.75
         max_retries = params.get("max_retries") if params.get("max_retries") is not None else 10
         max_group_tokens = params.get("max_group_tokens") if params.get("max_group_tokens") is not None else 1200
-        print("v1.0.2 (epub-translator 0.1.3)")
+
+        # Map user-friendly submit mode to SubmitKind enum
+        submit_mode_map = {
+            "Bilingual (Recommended)": SubmitKind.APPEND_BLOCK,
+            "Single Language": SubmitKind.REPLACE,
+            "Bilingual Inline": SubmitKind.APPEND_TEXT
+        }
+        submit_kind = submit_mode_map[params["submit_mode"]]
+
+        print("v1.0.4 (epub-translator 0.1.4)")
         # Initialize LLM client with OOMOL credentials
         llm = LLM(
             key=await context.oomol_token(),
@@ -88,16 +98,57 @@ async def main(params: Inputs, context: Context) -> Outputs:
         user_prompt = params.get("custom_prompt")
 
         # Perform translation
-        translate(
-            llm=llm,
-            source_path=source_path,
-            target_path=output_path,
-            target_language=params["target_language"],
-            user_prompt=user_prompt if user_prompt else None,
-            max_retries=max_retries,
-            max_group_tokens=max_group_tokens,
-            on_progress=on_progress,
-        )
+        try:
+            translate(
+                llm=llm,
+                source_path=source_path,
+                target_path=output_path,
+                target_language=params["target_language"],
+                submit=submit_kind,
+                user_prompt=user_prompt if user_prompt else None,
+                max_retries=max_retries,
+                max_group_tokens=max_group_tokens,
+                on_progress=on_progress,
+            )
+        except (ValueError, RuntimeError) as ve:
+            error_msg = str(ve)
+            if "Element not found in parent" in error_msg:
+                # Known issue with epub-translator when using certain submit modes
+                # Try fallback to APPEND_BLOCK mode if not already using it
+                if submit_kind != SubmitKind.APPEND_BLOCK:
+                    print(f"Warning: Encountered XML structure issue with {params['submit_mode']} mode.")
+                    print("Retrying with 'Bilingual (Recommended)' mode as fallback...")
+                    context.report_progress(0)  # Reset progress for retry
+
+                    try:
+                        translate(
+                            llm=llm,
+                            source_path=source_path,
+                            target_path=output_path,
+                            target_language=params["target_language"],
+                            submit=SubmitKind.APPEND_BLOCK,
+                            user_prompt=user_prompt if user_prompt else None,
+                            max_retries=max_retries,
+                            max_group_tokens=max_group_tokens,
+                            on_progress=on_progress,
+                        )
+                        print("Successfully completed using fallback mode.")
+                    except Exception as retry_error:
+                        raise RuntimeError(
+                            f"Translation failed even with fallback mode due to complex EPUB structure: {str(retry_error)}\n"
+                            "This EPUB file has a complex XML structure that the current version of "
+                            "epub-translator cannot process correctly. Please try a different EPUB file "
+                            "or report this issue to the epub-translator project."
+                        )
+                else:
+                    raise RuntimeError(
+                        f"Translation failed due to complex EPUB structure: {error_msg}\n"
+                        "This EPUB file has a complex XML structure that the current version of "
+                        "epub-translator cannot process correctly. Please try a different EPUB file "
+                        "or report this issue to the epub-translator project."
+                    )
+            else:
+                raise
 
         # Report completion
         context.report_progress(100)

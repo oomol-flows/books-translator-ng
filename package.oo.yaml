@@ -1,4 +1,4 @@
-version: 1.0.2
+version: 1.0.4
 scripts:
   bootstrap: |
     npm install
@@ -9,6 +9,29 @@ displayName: "%display-name%"
 description: "%description%"
 repository: https://github.com/oomol-flows/books-translator-ng.git
 releaseNotes: |
+  ## v1.0.4
+
+  ### Bug Fixes
+  - **Improved Error Handling**: Fixed issue where fallback retry logic for complex EPUB structures was not properly handling nested exceptions
+  - Better error messages when translation fails due to complex XML structures
+
+  ## v1.0.3
+
+  ### Dependency Updates
+  - Upgraded epub-translator from 0.1.3 to 0.1.4
+
+  ### New Features
+  - **Translation Submission Modes**: Choose between three translation output formats:
+    - **Bilingual (Recommended)**: Append translations as separate paragraphs with clear separation (APPEND_BLOCK)
+    - **Single Language**: Replace original text with translation only (REPLACE)
+    - **Bilingual Inline**: Append translations as inline text for continuous flow (APPEND_TEXT)
+
+  ### Improvements from epub-translator v0.1.4
+  - Platform Nodes Support: Better handling of complex EPUB structures with interleaved text content
+  - Non-Inline Element Preservation: Images and other non-inline elements are preserved when using single-language mode
+  - Quote Normalization: Automatic conversion of special quotation marks to standard quotes in TOC and metadata
+  - Enhanced compatibility with French guillemets (« », ‹ ›) and Chinese book title marks (《》, 〈〉)
+
   ## v1.0.2
 
   ### Dependency Updates

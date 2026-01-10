@@ -31,6 +31,17 @@ inputs_def:
     value: Chinese
     nullable: false
 
+  - handle: submit_mode
+    description: "%translation-submission-mode-bilingual-or-single-language%"
+    json_schema:
+      type: string
+      enum:
+        - Bilingual (Recommended)
+        - Single Language
+        - Bilingual Inline
+    value: Bilingual (Recommended)
+    nullable: false
+
   - handle: output_path
     description: "%path-where-the-translated-epub-will-be-saved-defaults-to-session%"
     json_schema:
@@ -55,7 +66,7 @@ inputs_def:
       model: oomol-chat
       temperature: 0.5
       top_p: 1
-      max_tokens: 128000
+      max_tokens: 200000
     nullable: false
 
   - group: Advanced Options
@@ -150,6 +161,7 @@ executor:
     entry: __init__.py
     spawn: false
 
+version: 0.1.5
 title: "%epub-translator%"
 icon: ":carbon:translate:"
 description: "%translate-epub-files-to-different-languages-using-llm-preserving%"

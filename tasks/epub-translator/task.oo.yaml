@@ -36,10 +36,10 @@ inputs_def:
     json_schema:
       type: string
       enum:
-        - Bilingual (Recommended)
-        - Single Language
-        - Bilingual Inline
-    value: Bilingual (Recommended)
+        - APPEND_BLOCK
+        - REPLACE
+        - APPEND_TEXT
+    value: APPEND_BLOCK
     nullable: false
 
   - handle: output_path
@@ -161,7 +161,7 @@ executor:
     entry: __init__.py
     spawn: false
 
-version: 0.1.6
+version: 0.1.9
 title: "%epub-translator%"
 icon: ":carbon:translate:"
 description: "%translate-epub-files-to-different-languages-using-llm-preserving%"

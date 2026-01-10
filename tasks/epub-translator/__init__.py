@@ -47,7 +47,7 @@ async def main(params: Inputs, context: Context) -> Outputs:
         retry_interval = params.get("retry_interval_seconds") if params.get("retry_interval_seconds") is not None else 0.75
         max_retries = params.get("max_retries") if params.get("max_retries") is not None else 10
         max_group_tokens = params.get("max_group_tokens") if params.get("max_group_tokens") is not None else 1200
-        print("v1.0.1")
+        print("v1.0.2 (epub-translator 0.1.3)")
         # Initialize LLM client with OOMOL credentials
         llm = LLM(
             key=await context.oomol_token(),

@@ -14,7 +14,8 @@
       "Bash(poetry show:*)",
       "Bash(poetry update:*)",
       "Bash(python:*)",
-      "Bash(cat:*)"
+      "Bash(cat:*)",
+      "Bash(python3:*)"
     ],
     "deny": [],
     "ask": []

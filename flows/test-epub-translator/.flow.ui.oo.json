@@ -6,6 +6,21 @@
           "x": 65.36345493831742,
           "y": 282.94363580943474
         }
+      },
+      "sections": {
+        "inputs": {
+          "collapsed": {
+            "custom_prompt": {
+              "[]": true
+            }
+          },
+          "groupCollapsed": {
+            "Advanced Options": true
+          }
+        },
+        "inputHandle": {
+          "cardCollapsed": true
+        }
       }
     }
   }

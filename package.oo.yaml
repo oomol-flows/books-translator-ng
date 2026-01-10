@@ -1,4 +1,4 @@
-version: 1.0.4
+version: 1.0.6
 scripts:
   bootstrap: |
     npm install
@@ -9,6 +9,19 @@ displayName: "%display-name%"
 description: "%description%"
 repository: https://github.com/oomol-flows/books-translator-ng.git
 releaseNotes: |
+  ## v1.0.6
+
+  ### Bug Fixes
+  - **Fixed Progress Reset Issue**: Removed unnecessary progress reset during fallback mode retries. Progress will no longer jump back to 0% during automatic mode switching
+  - **Improved Fallback Logic**: Optimized fallback mode sequence to avoid redundant attempts
+
+  ## v1.0.5
+
+  ### Improvements
+  - **Enhanced Error Recovery**: Now automatically tries all three submission modes (Single Language, Bilingual, Bilingual Inline) as fallbacks when encountering XML structure errors
+  - Improved error messages with actionable solutions including preprocessing suggestions
+  - Better progress reporting during fallback attempts
+
   ## v1.0.4
 
   ### Bug Fixes

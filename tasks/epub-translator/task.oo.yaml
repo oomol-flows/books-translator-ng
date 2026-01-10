@@ -161,7 +161,7 @@ executor:
     entry: __init__.py
     spawn: false
 
-version: 0.1.5
+version: 0.1.6
 title: "%epub-translator%"
 icon: ":carbon:translate:"
 description: "%translate-epub-files-to-different-languages-using-llm-preserving%"

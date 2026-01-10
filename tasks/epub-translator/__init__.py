@@ -57,7 +57,7 @@ async def main(params: Inputs, context: Context) -> Outputs:
         }
         submit_kind = submit_mode_map[params["submit_mode"]]
 
-        print("v1.0.4 (epub-translator 0.1.4)")
+        print("v1.0.6 (epub-translator 0.1.4)")
         # Initialize LLM client with OOMOL credentials
         llm = LLM(
             key=await context.oomol_token(),
@@ -97,58 +97,65 @@ async def main(params: Inputs, context: Context) -> Outputs:
         # Get optional custom prompt
         user_prompt = params.get("custom_prompt")
 
-        # Perform translation
-        try:
-            translate(
-                llm=llm,
-                source_path=source_path,
-                target_path=output_path,
-                target_language=params["target_language"],
-                submit=submit_kind,
-                user_prompt=user_prompt if user_prompt else None,
-                max_retries=max_retries,
-                max_group_tokens=max_group_tokens,
-                on_progress=on_progress,
-            )
-        except (ValueError, RuntimeError) as ve:
-            error_msg = str(ve)
-            if "Element not found in parent" in error_msg:
-                # Known issue with epub-translator when using certain submit modes
-                # Try fallback to APPEND_BLOCK mode if not already using it
-                if submit_kind != SubmitKind.APPEND_BLOCK:
-                    print(f"Warning: Encountered XML structure issue with {params['submit_mode']} mode.")
-                    print("Retrying with 'Bilingual (Recommended)' mode as fallback...")
-                    context.report_progress(0)  # Reset progress for retry
+        # Perform translation with automatic fallback on XML structure errors
+        # Build fallback sequence: start with user's choice, then try others
+        fallback_modes = [
+            (submit_kind, params['submit_mode']),
+            (SubmitKind.REPLACE, "Single Language"),
+            (SubmitKind.APPEND_TEXT, "Bilingual Inline"),
+        ]
 
-                    try:
-                        translate(
-                            llm=llm,
-                            source_path=source_path,
-                            target_path=output_path,
-                            target_language=params["target_language"],
-                            submit=SubmitKind.APPEND_BLOCK,
-                            user_prompt=user_prompt if user_prompt else None,
-                            max_retries=max_retries,
-                            max_group_tokens=max_group_tokens,
-                            on_progress=on_progress,
-                        )
-                        print("Successfully completed using fallback mode.")
-                    except Exception as retry_error:
+        # Remove duplicates while preserving order
+        seen_modes = set()
+        unique_fallback_modes = []
+        for mode, name in fallback_modes:
+            if mode not in seen_modes:
+                seen_modes.add(mode)
+                unique_fallback_modes.append((mode, name))
+
+        last_error = None
+        for attempt_num, (mode, mode_name) in enumerate(unique_fallback_modes):
+            try:
+                if attempt_num > 0:
+                    print(f"Retrying with '{mode_name}' mode (attempt {attempt_num + 1}/{len(unique_fallback_modes)})...")
+
+                translate(
+                    llm=llm,
+                    source_path=source_path,
+                    target_path=output_path,
+                    target_language=params["target_language"],
+                    submit=mode,
+                    user_prompt=user_prompt if user_prompt else None,
+                    max_retries=max_retries,
+                    max_group_tokens=max_group_tokens,
+                    on_progress=on_progress,
+                )
+
+                if attempt_num > 0:
+                    print(f"Successfully completed using '{mode_name}' mode.")
+                break  # Success, exit loop
+
+            except (ValueError, RuntimeError) as e:
+                error_msg = str(e)
+                if "Element not found in parent" in error_msg:
+                    last_error = error_msg
+                    if attempt_num == 0:
+                        print(f"Warning: Encountered XML structure issue with '{mode_name}' mode.")
+                    # Continue to next fallback mode
+                    if attempt_num == len(unique_fallback_modes) - 1:
+                        # All modes failed
                         raise RuntimeError(
-                            f"Translation failed even with fallback mode due to complex EPUB structure: {str(retry_error)}\n"
+                            f"Translation failed with all submission modes due to complex EPUB structure.\n"
+                            f"Last error: {last_error}\n\n"
                             "This EPUB file has a complex XML structure that the current version of "
-                            "epub-translator cannot process correctly. Please try a different EPUB file "
-                            "or report this issue to the epub-translator project."
+                            "epub-translator (0.1.4) cannot process correctly. Possible solutions:\n"
+                            "1. Try a different EPUB file\n"
+                            "2. Report this issue to: https://github.com/bookfere/epub-translator\n"
+                            "3. Consider preprocessing the EPUB with tools like Calibre to simplify its structure"
                         )
                 else:
-                    raise RuntimeError(
-                        f"Translation failed due to complex EPUB structure: {error_msg}\n"
-                        "This EPUB file has a complex XML structure that the current version of "
-                        "epub-translator cannot process correctly. Please try a different EPUB file "
-                        "or report this issue to the epub-translator project."
-                    )
-            else:
-                raise
+                    # Different error, re-raise immediately
+                    raise
 
         # Report completion
         context.report_progress(100)

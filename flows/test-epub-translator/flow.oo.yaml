@@ -4,11 +4,11 @@ nodes:
     title: "EPUB 翻译器 #1"
     inputs_from:
       - handle: source_epub
-        value: /oomol-driver/oomol-storage/2512-translated-2.epub
+        value: /oomol-driver/oomol-storage/new_book/deepseek.epub
       - handle: target_language
         value: Chinese
       - handle: submit_mode
-        value: Bilingual (Recommended)
+        value: Single Language
       - handle: output_path
         value: null
       - handle: llm

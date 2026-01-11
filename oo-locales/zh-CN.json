@@ -12,5 +12,11 @@
   "maximum-tokens-per-translation-batch": "每批次最大 tokens 数",
   "maximum-number-of-retries-for-failed-translations": "失败翻译的最大重试次数",
   "path-to-the-translated-epub-file": "已翻译 EPUB 文件的路径",
-  "whether-the-translation-was-successful": "翻译是否成功"
+  "whether-the-translation-was-successful": "翻译是否成功",
+  "epub-1": "EPUB 翻译器 #1",
+  "llm-api-timeout-in-seconds": "LLM API 超时时间（秒）",
+  "llm-temperature-for-controlling-randomness-0-0-2-0": "用于控制随机性的 LLM 温度（0.0-2.0）",
+  "llm-top_p-for-nucleus-sampling-0-0-1-0": "LLM nucleus sampling 的 top_p（0.0-1.0）",
+  "number-of-retry-attempts-for-failed-llm-calls": "失败的 LLM 调用的重试次数",
+  "interval-between-retries-in-seconds": "重试间隔（秒）"
 }

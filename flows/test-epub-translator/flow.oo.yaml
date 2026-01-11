@@ -1,7 +1,7 @@
 title: "%test-epub-translator%"
 nodes:
   - node_id: epub-translator#1
-    title: "EPUB 翻译器 #1"
+    title: "%epub-1%"
     inputs_from:
       - handle: source_epub
         value: /oomol-driver/oomol-storage/new_book/deepseek.epub

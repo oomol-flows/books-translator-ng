@@ -98,7 +98,7 @@ inputs_def:
     nullable: true
 
   - handle: timeout
-    description: "LLM API timeout in seconds"
+    description: "%llm-api-timeout-in-seconds%"
     json_schema:
       type: number
       minimum: 10
@@ -107,7 +107,7 @@ inputs_def:
     nullable: true
 
   - handle: temperature
-    description: "LLM temperature for controlling randomness (0.0-2.0)"
+    description: "%llm-temperature-for-controlling-randomness-0-0-2-0%"
     json_schema:
       type: number
       minimum: 0
@@ -116,7 +116,7 @@ inputs_def:
     nullable: true
 
   - handle: top_p
-    description: "LLM top_p for nucleus sampling (0.0-1.0)"
+    description: "%llm-top_p-for-nucleus-sampling-0-0-1-0%"
     json_schema:
       type: number
       minimum: 0
@@ -125,7 +125,7 @@ inputs_def:
     nullable: true
 
   - handle: retry_times
-    description: "Number of retry attempts for failed LLM calls"
+    description: "%number-of-retry-attempts-for-failed-llm-calls%"
     json_schema:
       type: integer
       minimum: 1
@@ -134,7 +134,7 @@ inputs_def:
     nullable: true
 
   - handle: retry_interval_seconds
-    description: "Interval between retries in seconds"
+    description: "%interval-between-retries-in-seconds%"
     json_schema:
       type: number
       minimum: 0.1

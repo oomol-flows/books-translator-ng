@@ -16,7 +16,8 @@
       "Bash(python:*)",
       "Bash(cat:*)",
       "Bash(python3:*)",
-      "Bash(pip index:*)"
+      "Bash(pip index:*)",
+      "Bash(poetry lock:*)"
     ],
     "deny": [],
     "ask": []

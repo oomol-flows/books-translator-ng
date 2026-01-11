@@ -8,7 +8,7 @@ nodes:
       - handle: target_language
         value: Chinese
       - handle: submit_mode
-        value: Single Language
+        value: REPLACE
       - handle: output_path
         value: null
       - handle: llm

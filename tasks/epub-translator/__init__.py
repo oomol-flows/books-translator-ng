@@ -4,7 +4,7 @@ from oocana import LLMModelOptions
 class Inputs(typing.TypedDict):
     source_epub: str
     target_language: typing.Literal["English", "Chinese", "Spanish", "French", "German", "Japanese", "Korean", "Portuguese", "Russian", "Italian", "Arabic", "Hindi"]
-    submit_mode: typing.Literal["APPEND_BLOCK", "REPLACE", "APPEND_TEXT"]
+    submit_mode: typing.Literal["APPEND_BLOCK", "REPLACE"]
     output_path: str | None
     llm: LLMModelOptions
     custom_prompt: str | None

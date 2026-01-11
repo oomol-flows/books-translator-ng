@@ -38,7 +38,6 @@ inputs_def:
       enum:
         - APPEND_BLOCK
         - REPLACE
-        - APPEND_TEXT
     value: APPEND_BLOCK
     nullable: false
 

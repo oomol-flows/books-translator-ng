@@ -41,6 +41,19 @@ inputs_def:
     value: APPEND_BLOCK
     nullable: false
 
+  - handle: llm
+    description: "%llm-model-configuration-for-translation%"
+    json_schema:
+      ui:widget: llm::model
+      ui:options:
+        title: Model
+    value:
+      model: oomol-chat
+      temperature: 0.5
+      top_p: 1
+      max_tokens: 200000
+    nullable: false
+
   - handle: output_path
     description: "%path-where-the-translated-epub-will-be-saved-defaults-to-session%"
     json_schema:
@@ -55,21 +68,8 @@ inputs_def:
     value:
     nullable: true
 
-  - handle: llm
-    description: "%llm-model-configuration-for-translation%"
-    json_schema:
-      ui:widget: llm::model
-      ui:options:
-        title: Model
-    value:
-      model: oomol-chat
-      temperature: 0.5
-      top_p: 1
-      max_tokens: 200000
-    nullable: false
-
   - group: Advanced Options
-    collapsed: true
+    collapsed: false
 
   - handle: custom_prompt
     description: "%custom-translation-instructions-optional%"
@@ -140,6 +140,15 @@ inputs_def:
       minimum: 0.1
       maximum: 30
     value:
+    nullable: true
+
+  - handle: concurrency
+    description: "%number-of-concurrent-translation-processes-1-10%"
+    json_schema:
+      type: integer
+      minimum: 1
+      maximum: 10
+    value: 4
     nullable: true
 
 outputs_def:

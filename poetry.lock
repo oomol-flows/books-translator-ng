@@ -193,14 +193,14 @@ files = [
 
 [[package]]
 name = "epub-translator"
-version = "0.1.5"
+version = "0.1.6"
 description = "Translate the epub book using LLM. The translated book will retain the original text and list the translated text side by side with the original text."
 optional = false
 python-versions = "<3.14,>=3.11"
 groups = ["main"]
 files = [
-    {file = "epub_translator-0.1.5-py3-none-any.whl", hash = "sha256:df6ef5be3471a8dacf20ff696469023da9c4385a44f58f0bf604d3d1109c2b5c"},
-    {file = "epub_translator-0.1.5.tar.gz", hash = "sha256:ed587c46bcf961033d25b8bf2d43d21a3d663a0a516e46a4242677632f55d9ca"},
+    {file = "epub_translator-0.1.6-py3-none-any.whl", hash = "sha256:6ced3d4b5b0a663fe0f9e9aa6c72f45f9025cce5af28baff0c703641ea06e268"},
+    {file = "epub_translator-0.1.6.tar.gz", hash = "sha256:2d02b6d443081e1f1f5f550135ddad904e73ddcbf41f0851f8ef951e62c63169"},
 ]
 
 [package.dependencies]
@@ -1011,4 +1011,4 @@ zstd = ["backports-zstd (>=1.0.0) ; python_version < \"3.14\""]
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.11,<3.13"
-content-hash = "3e1ba5a48c2311281939aefdc3d035e1925a0ee5a6fc78e10f84d06903939075"
+content-hash = "cd172cdeaae2f41a6274cff555323eaaa16c3e10e937e0b81cc9e152727c0f5f"

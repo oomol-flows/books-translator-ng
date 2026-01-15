@@ -5,8 +5,8 @@ class Inputs(typing.TypedDict):
     source_epub: str
     target_language: typing.Literal["English", "Chinese", "Spanish", "French", "German", "Japanese", "Korean", "Portuguese", "Russian", "Italian", "Arabic", "Hindi"]
     submit_mode: typing.Literal["APPEND_BLOCK", "REPLACE"]
-    output_path: str | None
     llm: LLMModelOptions
+    output_path: str | None
     custom_prompt: str | None
     max_group_tokens: int | None
     max_retries: int | None
@@ -15,6 +15,7 @@ class Inputs(typing.TypedDict):
     top_p: float | None
     retry_times: int | None
     retry_interval_seconds: float | None
+    concurrency: int | None
 class Outputs(typing.TypedDict):
     translated_file: typing.NotRequired[str]
     success: typing.NotRequired[bool]
@@ -47,12 +48,13 @@ async def main(params: Inputs, context: Context) -> Outputs:
         retry_times = params.get("retry_times") if params.get("retry_times") is not None else 10
         retry_interval = params.get("retry_interval_seconds") if params.get("retry_interval_seconds") is not None else 0.75
         max_retries = params.get("max_retries") if params.get("max_retries") is not None else 10
-        max_group_tokens = params.get("max_group_tokens") if params.get("max_group_tokens") is not None else 1200
+        max_group_tokens = params.get("max_group_tokens") if params.get("max_group_tokens") is not None else 2600
+        concurrency = params.get("concurrency") if params.get("concurrency") is not None else 1
 
         # Get submit mode directly from enum
         submit_kind = SubmitKind[params["submit_mode"]]
 
-        print("v1.0.9 (epub-translator 0.1.4)")
+        print("v1.1.1 (epub-translator 0.1.6)")
         # Initialize LLM client with OOMOL credentials
         llm = LLM(
             key=await context.oomol_token(),
@@ -102,6 +104,7 @@ async def main(params: Inputs, context: Context) -> Outputs:
             user_prompt=user_prompt if user_prompt else None,
             max_retries=max_retries,
             max_group_tokens=max_group_tokens,
+            concurrency=concurrency,
             on_progress=on_progress,
         )
 

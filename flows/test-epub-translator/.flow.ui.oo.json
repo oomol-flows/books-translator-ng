@@ -7,13 +7,6 @@
           "x": 0,
           "y": 0
         }
-      },
-      "sections": {
-        "inputs": {
-          "groupCollapsed": {
-            "Advanced Options": true
-          }
-        }
       }
     }
   }

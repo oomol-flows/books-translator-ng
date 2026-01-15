@@ -33,4 +33,6 @@ nodes:
         value: null
       - handle: retry_interval_seconds
         value: null
-    task: self::epub-translator
+      - handle: concurrency
+        value: 4
+    task: self::book-translator

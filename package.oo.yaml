@@ -1,4 +1,4 @@
-version: 1.1.0
+version: 1.1.1
 scripts:
   bootstrap: |
     npm install
@@ -9,10 +9,10 @@ displayName: "%display-name%"
 description: "%description%"
 repository: https://github.com/oomol-flows/books-translator-ng.git
 releaseNotes: |
-  ## v1.0.9
+  ## v1.1.1
 
   ### Dependency Updates
-  - Upgraded epub-translator from 0.1.4 to 0.1.5
+  - Upgraded epub-translator from 0.1.4 to 0.1.6
 
   ### Bug Fixes from epub-translator v0.1.5
   - **Fixed Critical Crash**: Resolved ValueError: Element not found in parent crash when processing EPUB files with nested inline elements (e.g., `<math>` inside `<span>`)

@@ -18,5 +18,7 @@
   "llm-temperature-for-controlling-randomness-0-0-2-0": "LLM temperature for controlling randomness (0.0-2.0)",
   "llm-top_p-for-nucleus-sampling-0-0-1-0": "LLM top_p for nucleus sampling (0.0-1.0)",
   "number-of-retry-attempts-for-failed-llm-calls": "Number of retry attempts for failed LLM calls",
-  "interval-between-retries-in-seconds": "Interval between retries in seconds"
+  "interval-between-retries-in-seconds": "Interval between retries in seconds",
+  "number-of-concurrent-translation-processes-1-10": "Number of concurrent translation processes (1-10)",
+  "translation-output-mode-append-or-replace": "Translation output mode (append bilingual blocks or replace original text)"
 }

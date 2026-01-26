@@ -18,5 +18,7 @@
   "llm-temperature-for-controlling-randomness-0-0-2-0": "用于控制随机性的 LLM 温度（0.0-2.0）",
   "llm-top_p-for-nucleus-sampling-0-0-1-0": "LLM nucleus sampling 的 top_p（0.0-1.0）",
   "number-of-retry-attempts-for-failed-llm-calls": "失败的 LLM 调用的重试次数",
-  "interval-between-retries-in-seconds": "重试间隔（秒）"
+  "interval-between-retries-in-seconds": "重试间隔（秒）",
+  "number-of-concurrent-translation-processes-1-10": "并发翻译进程数量（1-10）",
+  "translation-output-mode-append-or-replace": "翻译输出模式（追加双语块或替换原文）"
 }

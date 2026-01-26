@@ -5,7 +5,6 @@ class Inputs(typing.TypedDict):
     source_epub: str
     target_language: typing.Literal["English", "Chinese", "Spanish", "French", "German", "Japanese", "Korean", "Portuguese", "Russian", "Italian", "Arabic", "Hindi"]
     submit_mode: typing.Literal["APPEND_BLOCK", "REPLACE"]
-    llm: LLMModelOptions
     output_path: str | None
     custom_prompt: str | None
     max_group_tokens: int | None
@@ -16,6 +15,7 @@ class Inputs(typing.TypedDict):
     retry_times: int | None
     retry_interval_seconds: float | None
     concurrency: int | None
+    llm: LLMModelOptions
 class Outputs(typing.TypedDict):
     translated_file: typing.NotRequired[str]
     success: typing.NotRequired[bool]

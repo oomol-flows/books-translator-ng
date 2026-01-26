@@ -7,6 +7,15 @@
           "x": 0,
           "y": 0
         }
+      },
+      "sections": {
+        "inputs": {
+          "collapsed": {
+            "custom_prompt": {
+              "[]": true
+            }
+          }
+        }
       }
     }
   }

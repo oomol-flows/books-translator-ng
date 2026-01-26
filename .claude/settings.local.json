@@ -17,7 +17,12 @@
       "Bash(cat:*)",
       "Bash(python3:*)",
       "Bash(pip index:*)",
-      "Bash(poetry lock:*)"
+      "Bash(poetry lock:*)",
+      "Bash",
+      "Read",
+      "Write",
+      "WebFetch",
+      "mcp__oomol"
     ],
     "deny": [],
     "ask": []

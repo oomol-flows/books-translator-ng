@@ -1,11 +1,11 @@
 {
   "nodes": {
-    "epub-translator#1": {
-      "contentWidth": 548.16015625,
+    "book-translator#1": {
+      "contentWidth": 572.71484375,
       "rfNode": {
         "position": {
-          "x": 180.99999999999994,
-          "y": 103.00097846984863
+          "x": 227.33333061801073,
+          "y": 163.08561614818043
         }
       },
       "sections": {
@@ -14,9 +14,6 @@
             "custom_prompt": {
               "[]": true
             }
-          },
-          "groupCollapsed": {
-            "Advanced Options": true
           }
         }
       }

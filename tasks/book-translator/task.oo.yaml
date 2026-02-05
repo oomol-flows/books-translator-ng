@@ -9,6 +9,7 @@ inputs_def:
           - name: EPUB
             extensions:
               - epub
+        excludeAll: true
     nullable: false
 
   - handle: target_language
@@ -46,9 +47,25 @@ inputs_def:
     nullable: false
 
   - group: Advanced Options
-    collapsed: true
+    collapsed: false
 
-  - handle: output_path
+  - handle: concurrency
+    description: "%number-of-concurrent-translation-processes-1-10%"
+    json_schema:
+      type: integer
+      minimum: 1
+      maximum: 8
+    value: 4
+    nullable: false
+
+  - handle: max_group_tokens
+    json_schema:
+      type: integer
+      minimum: 350
+    nullable: false
+    value: 2600
+
+  - handle: translated_path
     description: "%path-where-the-translated-epub-will-be-saved-defaults-to-session%"
     json_schema:
       type: string
@@ -69,79 +86,6 @@ inputs_def:
       ui:widget: text
     value:
     nullable: true
-
-  - handle: max_group_tokens
-    description: "%maximum-tokens-per-translation-batch%"
-    json_schema:
-      type: integer
-      minimum: 100
-      maximum: 4000
-    value:
-    nullable: true
-
-  - handle: max_retries
-    description: "%maximum-number-of-retries-for-failed-translations%"
-    json_schema:
-      type: integer
-      minimum: 1
-      maximum: 10
-    value:
-    nullable: true
-
-  - handle: timeout
-    description: "%llm-api-timeout-in-seconds%"
-    json_schema:
-      type: number
-      minimum: 10
-      maximum: 600
-    value:
-    nullable: true
-
-  - handle: temperature
-    description: "%llm-temperature-for-controlling-randomness-0-0-2-0%"
-    json_schema:
-      type: number
-      minimum: 0
-      maximum: 2
-    value:
-    nullable: true
-
-  - handle: top_p
-    description: "%llm-top_p-for-nucleus-sampling-0-0-1-0%"
-    json_schema:
-      type: number
-      minimum: 0
-      maximum: 1
-    value:
-    nullable: true
-
-  - handle: retry_times
-    description: "%number-of-retry-attempts-for-failed-llm-calls%"
-    json_schema:
-      type: integer
-      minimum: 1
-      maximum: 20
-    value:
-    nullable: true
-
-  - handle: retry_interval_seconds
-    description: "%interval-between-retries-in-seconds%"
-    json_schema:
-      type: number
-      minimum: 0.1
-      maximum: 30
-    value:
-    nullable: true
-
-  - handle: concurrency
-    description: "%number-of-concurrent-translation-processes-1-10%"
-    json_schema:
-      type: integer
-      minimum: 1
-      maximum: 10
-    value: 4
-    nullable: true
-
   - handle: llm
     description: "%llm-model-configuration-for-translation%"
     json_schema:
@@ -150,22 +94,23 @@ inputs_def:
         title: Model
     value:
       model: deepseek-chat
-      temperature: 0.6
-      top_p: 0.8
+      temperature: 0.8
+      top_p: 0.6
       max_tokens: 8100
     nullable: false
 
 outputs_def:
-  - handle: translated_file
+  - handle: translated_path
     description: "%path-to-the-translated-epub-file%"
     json_schema:
       type: string
-      ui:widget: file
-
-  - handle: success
-    description: "%whether-the-translation-was-successful%"
-    json_schema:
-      type: boolean
+      ui:widget: save
+      ui:options:
+        filters:
+          - extensions:
+              - epub
+            name: EPUB
+        excludeAll: true
 
 executor:
   name: python
@@ -177,3 +122,5 @@ version: 0.1.9
 title: "%epub-translator%"
 icon: ":carbon:translate:"
 description: "%translate-epub-files-to-different-languages-using-llm-preserving%"
+ui:
+  default_width: 572.71484375

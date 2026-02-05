@@ -1,37 +1,25 @@
 title: "%test-epub-translator%"
 nodes:
-  - node_id: epub-translator#1
-    title: "%epub-1%"
+  - node_id: book-translator#1
+    title: "EPUB 翻译器 #1"
     inputs_from:
       - handle: source_epub
       - handle: target_language
         value: Chinese
       - handle: submit_mode
         value: APPEND_BLOCK
-      - handle: output_path
+      - handle: concurrency
+        value: 4
+      - handle: max_group_tokens
+        value: 2600
+      - handle: translated_path
+        value: null
+      - handle: custom_prompt
         value: null
       - handle: llm
         value:
           model: deepseek-chat
-          temperature: 0.6
-          top_p: 0.8
+          temperature: 0.8
+          top_p: 0.6
           max_tokens: 8100
-      - handle: custom_prompt
-        value: null
-      - handle: max_group_tokens
-        value: null
-      - handle: max_retries
-        value: null
-      - handle: timeout
-        value: null
-      - handle: temperature
-        value: null
-      - handle: top_p
-        value: null
-      - handle: retry_times
-        value: null
-      - handle: retry_interval_seconds
-        value: null
-      - handle: concurrency
-        value: 4
     task: self::book-translator

@@ -13,7 +13,6 @@
   "maximum-number-of-retries-for-failed-translations": "Maximum number of retries for failed translations",
   "path-to-the-translated-epub-file": "Path to the translated EPUB file",
   "whether-the-translation-was-successful": "Whether the translation was successful",
-  "epub-1": "EPUB Translator #1",
   "llm-api-timeout-in-seconds": "LLM API timeout in seconds",
   "llm-temperature-for-controlling-randomness-0-0-2-0": "LLM temperature for controlling randomness (0.0-2.0)",
   "llm-top_p-for-nucleus-sampling-0-0-1-0": "LLM top_p for nucleus sampling (0.0-1.0)",

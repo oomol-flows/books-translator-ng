@@ -5,20 +5,13 @@ class Inputs(typing.TypedDict):
     source_epub: str
     target_language: typing.Literal["English", "Chinese", "Spanish", "French", "German", "Japanese", "Korean", "Portuguese", "Russian", "Italian", "Arabic", "Hindi"]
     submit_mode: typing.Literal["APPEND_BLOCK", "REPLACE"]
-    output_path: str | None
+    concurrency: int
+    max_group_tokens: int
+    translated_path: str | None
     custom_prompt: str | None
-    max_group_tokens: int | None
-    max_retries: int | None
-    timeout: float | None
-    temperature: float | None
-    top_p: float | None
-    retry_times: int | None
-    retry_interval_seconds: float | None
-    concurrency: int | None
     llm: LLMModelOptions
 class Outputs(typing.TypedDict):
-    translated_file: typing.NotRequired[str]
-    success: typing.NotRequired[bool]
+    translated_path: typing.NotRequired[str]
 #endregion
 
 from oocana import Context
@@ -27,95 +20,72 @@ from epub_translator import LLM, translate, SubmitKind
 
 
 async def main(params: Inputs, context: Context) -> Outputs:
-    """
-    Translate an EPUB file to the target language using LLM.
+    llm_config = params["llm"]
+    llm_key = await context.oomol_token()
+    llm_url = context.oomol_llm_env.get("base_url_v1")
+    llm_model = llm_config.get("model", "oomol-chat")
+    translation_llm = load_llm(
+        key=llm_key,
+        url=llm_url,
+        model=llm_model,
+        temperature=llm_config.get("temperature", 0.8),
+        top_p=llm_config.get("top_p", 0.6),
+    )
+    fill_llm = load_llm(
+        key=llm_key,
+        url=llm_url,
+        model=llm_model,
+        temperature=(0.2, 0.9),
+        top_p=(0.9, 1.0),
+    )
+    def on_progress(progress: float):
+        progress_percent = int(progress * 100)
+        context.report_progress(progress_percent)
 
-    Args:
-        params: Input parameters including source file, target language, and LLM config
-        context: OOMOL context for accessing LLM credentials and reporting progress
+    source_path = Path(params["source_epub"])
+    translated_path = params.get("translated_path")
+    target_language = params["target_language"]
 
-    Returns:
-        Dictionary containing the translated file path and success status
-    """
-    try:
-        # Get LLM configuration with fallback to recommended defaults
-        llm_config = params["llm"]
+    if translated_path:
+        translated_path = Path(translated_path)
+    else:
+        source_name = source_path.stem
+        output_filename = f"{source_name}_{target_language}.epub"
+        translated_path = Path(context.session_dir) / output_filename
 
-        # Use user-provided values if available, otherwise use recommended defaults
-        timeout = params.get("timeout") if params.get("timeout") is not None else 360.0
-        temperature = params.get("temperature") if params.get("temperature") is not None else 0.3
-        top_p = params.get("top_p") if params.get("top_p") is not None else 0.9
-        retry_times = params.get("retry_times") if params.get("retry_times") is not None else 10
-        retry_interval = params.get("retry_interval_seconds") if params.get("retry_interval_seconds") is not None else 0.75
-        max_retries = params.get("max_retries") if params.get("max_retries") is not None else 10
-        max_group_tokens = params.get("max_group_tokens") if params.get("max_group_tokens") is not None else 2600
-        concurrency = params.get("concurrency") if params.get("concurrency") is not None else 1
+    translated_path.parent.mkdir(parents=True, exist_ok=True)
 
-        # Get submit mode directly from enum
-        submit_kind = SubmitKind[params["submit_mode"]]
+    translate(
+        translation_llm=translation_llm,
+        fill_llm=fill_llm,
+        source_path=source_path,
+        target_path=translated_path,
+        target_language=target_language,
+        submit=SubmitKind[params["submit_mode"]],
+        user_prompt=params.get("custom_prompt", None),
+        max_group_tokens=params["max_group_tokens"],
+        concurrency=params["concurrency"],
+        on_progress=on_progress,
+    )
+    context.report_progress(100)
 
-        print("v1.1.1 (epub-translator 0.1.6)")
-        # Initialize LLM client with OOMOL credentials
-        llm = LLM(
-            key=await context.oomol_token(),
-            url=context.oomol_llm_env.get("base_url_v1"),
-            model=llm_config.get("model", "oomol-chat"),
-            token_encoding="o200k_base",
-            cache_path=None,  # Disable caching
-            timeout=timeout,
-            temperature=temperature,
-            top_p=top_p,
-            retry_times=retry_times,
-            retry_interval_seconds=retry_interval,
-        )
+    return { "translated_path": str(translated_path) }
 
-        # Define progress callback
-        def on_progress(progress: float):
-            """Report translation progress to OOMOL UI"""
-            progress_percent = int(progress * 100)
-            context.report_progress(progress_percent)
-
-        # Get paths
-        source_path = Path(params["source_epub"])
-
-        # Use output_path if provided, otherwise default to session_dir
-        if params.get("output_path"):
-            output_path = Path(params["output_path"])
-        else:
-            # Generate output filename based on source and target language
-            source_name = source_path.stem
-            target_lang = params["target_language"]
-            output_filename = f"{source_name}_{target_lang}.epub"
-            output_path = Path(context.session_dir) / output_filename
-
-        # Ensure output directory exists
-        output_path.parent.mkdir(parents=True, exist_ok=True)
-
-        # Get optional custom prompt
-        user_prompt = params.get("custom_prompt")
-
-        # Perform translation using user-selected mode
-        translate(
-            llm=llm,
-            source_path=source_path,
-            target_path=output_path,
-            target_language=params["target_language"],
-            submit=submit_kind,
-            user_prompt=user_prompt if user_prompt else None,
-            max_retries=max_retries,
-            max_group_tokens=max_group_tokens,
-            concurrency=concurrency,
-            on_progress=on_progress,
-        )
-
-        # Report completion
-        context.report_progress(100)
-
-        return {
-            "translated_file": str(output_path),
-            "success": True
-        }
-
-    except Exception as e:
-        # Report error and return failure status
-        raise RuntimeError(f"Translation failed: {str(e)}")
+def load_llm(
+    key: str,
+    url: str,
+    model: str,
+    temperature: float | tuple[float, float],
+    top_p: float | tuple[float, float],
+) -> LLM:
+    return LLM(
+        key=key,
+        url=url,
+        model=model,
+        token_encoding="o200k_base",
+        timeout=360.0,
+        retry_times=10,
+        retry_interval_seconds=0.75,
+        temperature=temperature,
+        top_p=top_p,
+    )

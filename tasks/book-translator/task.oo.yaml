@@ -38,6 +38,10 @@ inputs_def:
       enum:
         - APPEND_BLOCK
         - REPLACE
+      ui:options:
+        labels:
+          - Append
+          - Replace
     value: APPEND_BLOCK
     nullable: false
 
@@ -145,7 +149,7 @@ inputs_def:
       ui:options:
         title: Model
     value:
-      model: oomol-chat
+      model: deepseek-chat
       temperature: 0.6
       top_p: 0.8
       max_tokens: 8100

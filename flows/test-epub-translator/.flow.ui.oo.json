@@ -4,8 +4,8 @@
       "contentWidth": 548.16015625,
       "rfNode": {
         "position": {
-          "x": 0,
-          "y": 0
+          "x": 180.99999999999994,
+          "y": 103.00097846984863
         }
       },
       "sections": {
@@ -14,6 +14,9 @@
             "custom_prompt": {
               "[]": true
             }
+          },
+          "groupCollapsed": {
+            "Advanced Options": true
           }
         }
       }

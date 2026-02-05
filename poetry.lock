@@ -32,6 +32,29 @@ typing_extensions = {version = ">=4.5", markers = "python_version < \"3.13\""}
 trio = ["trio (>=0.31.0) ; python_version < \"3.10\"", "trio (>=0.32.0) ; python_version >= \"3.10\""]
 
 [[package]]
+name = "beautifulsoup4"
+version = "4.14.3"
+description = "Screen-scraping library"
+optional = false
+python-versions = ">=3.7.0"
+groups = ["main"]
+files = [
+    {file = "beautifulsoup4-4.14.3-py3-none-any.whl", hash = "sha256:0918bfe44902e6ad8d57732ba310582e98da931428d231a5ecb9e7c703a735bb"},
+    {file = "beautifulsoup4-4.14.3.tar.gz", hash = "sha256:6292b1c5186d356bba669ef9f7f051757099565ad9ada5dd630bd9de5fa7fb86"},
+]
+
+[package.dependencies]
+soupsieve = ">=1.6.1"
+typing-extensions = ">=4.0.0"
+
+[package.extras]
+cchardet = ["cchardet"]
+chardet = ["chardet"]
+charset-normalizer = ["charset-normalizer"]
+html5lib = ["html5lib"]
+lxml = ["lxml"]
+
+[[package]]
 name = "certifi"
 version = "2025.11.12"
 description = "Python package for providing Mozilla's CA Bundle."
@@ -193,18 +216,19 @@ files = [
 
 [[package]]
 name = "epub-translator"
-version = "0.1.6"
+version = "0.1.8"
 description = "Translate the epub book using LLM. The translated book will retain the original text and list the translated text side by side with the original text."
 optional = false
 python-versions = "<3.14,>=3.11"
 groups = ["main"]
 files = [
-    {file = "epub_translator-0.1.6-py3-none-any.whl", hash = "sha256:6ced3d4b5b0a663fe0f9e9aa6c72f45f9025cce5af28baff0c703641ea06e268"},
-    {file = "epub_translator-0.1.6.tar.gz", hash = "sha256:2d02b6d443081e1f1f5f550135ddad904e73ddcbf41f0851f8ef951e62c63169"},
+    {file = "epub_translator-0.1.8-py3-none-any.whl", hash = "sha256:00990f103b4ffb266ff6800fa0f1d5e75861471bbbea65197cb41f6bc56cd529"},
+    {file = "epub_translator-0.1.8.tar.gz", hash = "sha256:83a9bbd0bc4ef802f0df458686a9061607e86a1d5aaab10b157fe106dfae75d0"},
 ]
 
 [package.dependencies]
 jinja2 = ">=3.1.6,<4.0.0"
+mathml2latex = ">=0.2.12,<0.3.0"
 openai = ">=2.14.0,<3.0.0"
 resource-segmentation = ">=0.0.7,<0.1.0"
 tiktoken = ">=0.12.0,<1.0.0"
@@ -511,6 +535,20 @@ files = [
     {file = "markupsafe-3.0.3-cp39-cp39-win_arm64.whl", hash = "sha256:38664109c14ffc9e7437e86b4dceb442b0096dfe3541d7864d9cbe1da4cf36c8"},
     {file = "markupsafe-3.0.3.tar.gz", hash = "sha256:722695808f4b6457b320fdc131280796bdceb04ab50fe1795cd540799ebe1698"},
 ]
+
+[[package]]
+name = "mathml2latex"
+version = "0.2.12"
+description = ""
+optional = false
+python-versions = ">=3.7,<4.0"
+groups = ["main"]
+files = [
+    {file = "mathml2latex-0.2.12-py3-none-any.whl", hash = "sha256:bf9b04ad49e1d345a072206f3b6f12b54865e6478dfb4f27b6e9be59525932f4"},
+]
+
+[package.dependencies]
+beautifulsoup4 = ">=4.7,<5.0"
 
 [[package]]
 name = "openai"
@@ -868,6 +906,18 @@ files = [
 ]
 
 [[package]]
+name = "soupsieve"
+version = "2.8.3"
+description = "A modern CSS selector implementation for Beautiful Soup."
+optional = false
+python-versions = ">=3.9"
+groups = ["main"]
+files = [
+    {file = "soupsieve-2.8.3-py3-none-any.whl", hash = "sha256:ed64f2ba4eebeab06cc4962affce381647455978ffc1e36bb79a545b91f45a95"},
+    {file = "soupsieve-2.8.3.tar.gz", hash = "sha256:3267f1eeea4251fb42728b6dfb746edc9acaffc4a45b27e19450b676586e8349"},
+]
+
+[[package]]
 name = "tiktoken"
 version = "0.12.0"
 description = "tiktoken is a fast BPE tokeniser for use with OpenAI's models"
@@ -1011,4 +1061,4 @@ zstd = ["backports-zstd (>=1.0.0) ; python_version < \"3.14\""]
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.11,<3.13"
-content-hash = "cd172cdeaae2f41a6274cff555323eaaa16c3e10e937e0b81cc9e152727c0f5f"
+content-hash = "46a24102bc03967f3888f8efa2a1cbed615a8c32dbd566712edf50373150dae2"

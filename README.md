@@ -1,5 +1,7 @@
 # EPUB Translator
 
+Transform your digital books into any language you want to read, making world literature accessible to everyone. This OOMOL block provides a visual, no-code interface to translate EPUB books while preserving their structure and formatting.
+
 <div align="center">
 
 ![Translation Effect](https://raw.githubusercontent.com/oomol-lab/epub-translator/main/docs/images/translation.png)
@@ -7,8 +9,6 @@
 [![Watch the Tutorial](https://raw.githubusercontent.com/oomol-lab/epub-translator/main/docs/images/link2youtube.png)](https://www.youtube.com/watch?v=QsAdiskxfXI)
 
 </div>
-
-Transform your digital books into any language you want to read, making world literature accessible to everyone. This OOMOL block provides a visual, no-code interface to translate EPUB books while preserving their structure and formatting.
 
 ## What This Does
 

@@ -1,5 +1,7 @@
 # EPUB 翻译器
 
+将您的数字图书转换成任何您想阅读的语言,让世界文学触手可及。这个 OOMOL 区块提供了一个可视化、无需编码的界面来翻译 EPUB 图书,同时保留其结构和格式。
+
 <div align="center">
 
 ![翻译效果](https://raw.githubusercontent.com/oomol-lab/epub-translator/main/docs/images/translation.png)
@@ -7,8 +9,6 @@
 [![观看教程视频](https://raw.githubusercontent.com/oomol-lab/epub-translator/main/docs/images/link2youtube.png)](https://www.youtube.com/watch?v=QsAdiskxfXI)
 
 </div>
-
-将您的数字图书转换成任何您想阅读的语言,让世界文学触手可及。这个 OOMOL 区块提供了一个可视化、无需编码的界面来翻译 EPUB 图书,同时保留其结构和格式。
 
 ## 这个区块能做什么
 

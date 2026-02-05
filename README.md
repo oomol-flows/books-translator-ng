@@ -2,11 +2,9 @@
 
 <div align="center">
 
-![Translation Effect](https://raw.githubusercontent.com/oomol-lab/epub-translator/refs/heads/main/screenshots/translate-effect.png)
+![Translation Effect](https://raw.githubusercontent.com/oomol-lab/epub-translator/main/docs/images/translation.png)
 
-[![Watch the Tutorial](https://img.youtube.com/vi/RTHDdvOTS0I/0.jpg)](https://www.youtube.com/watch?v=RTHDdvOTS0I)
-
-*Click to watch the tutorial video*
+[![Watch the Tutorial](https://raw.githubusercontent.com/oomol-lab/epub-translator/main/docs/images/link2youtube.png)](https://www.youtube.com/watch?v=QsAdiskxfXI)
 
 </div>
 

@@ -2,11 +2,9 @@
 
 <div align="center">
 
-![翻译效果](https://raw.githubusercontent.com/oomol-lab/epub-translator/refs/heads/main/screenshots/translate-effect.png)
+![翻译效果](https://raw.githubusercontent.com/oomol-lab/epub-translator/main/docs/images/translation.png)
 
-[![观看教程视频](https://img.youtube.com/vi/RTHDdvOTS0I/0.jpg)](https://www.youtube.com/watch?v=RTHDdvOTS0I)
-
-*点击观看教程视频*
+[![观看教程视频](https://raw.githubusercontent.com/oomol-lab/epub-translator/main/docs/images/link2youtube.png)](https://www.youtube.com/watch?v=QsAdiskxfXI)
 
 </div>
 

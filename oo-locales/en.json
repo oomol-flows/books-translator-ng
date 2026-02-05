@@ -19,5 +19,6 @@
   "number-of-retry-attempts-for-failed-llm-calls": "Number of retry attempts for failed LLM calls",
   "interval-between-retries-in-seconds": "Interval between retries in seconds",
   "number-of-concurrent-translation-processes-1-10": "Number of concurrent translation processes (1-10)",
-  "translation-output-mode-append-or-replace": "Translation output mode (append bilingual blocks or replace original text)"
+  "translation-output-mode-append-or-replace": "Translation output mode (append bilingual blocks or replace original text)",
+  "maximum-tokens-per-translation-group": "Maximum tokens per translation group"
 }

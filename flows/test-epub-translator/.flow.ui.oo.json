@@ -1,19 +1,17 @@
 {
   "nodes": {
-    "book-translator#1": {
+    "book-translator#2": {
       "contentWidth": 572.71484375,
       "rfNode": {
         "position": {
-          "x": 227.33333061801073,
-          "y": 163.08561614818043
+          "x": 313.9166603916224,
+          "y": 174.25228105982154
         }
       },
       "sections": {
         "inputs": {
-          "collapsed": {
-            "custom_prompt": {
-              "[]": true
-            }
+          "groupCollapsed": {
+            "Advanced Options": true
           }
         }
       }

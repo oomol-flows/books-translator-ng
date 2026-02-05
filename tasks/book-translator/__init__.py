@@ -19,6 +19,7 @@ from pathlib import Path
 from epub_translator import LLM, translate, SubmitKind
 
 
+
 async def main(params: Inputs, context: Context) -> Outputs:
     llm_config = params["llm"]
     llm_key = await context.oomol_token()
@@ -51,7 +52,8 @@ async def main(params: Inputs, context: Context) -> Outputs:
     else:
         source_name = source_path.stem
         output_filename = f"{source_name}_{target_language}.epub"
-        translated_path = Path(context.session_dir) / output_filename
+        translated_path = Path(source_path.parent) / output_filename
+        translated_path = get_unique_path(translated_path)
 
     translated_path.parent.mkdir(parents=True, exist_ok=True)
 
@@ -89,3 +91,19 @@ def load_llm(
         temperature=temperature,
         top_p=top_p,
     )
+
+
+def get_unique_path(path: Path) -> Path:
+    if not path.exists():
+        return path
+
+    stem = path.stem
+    suffix = path.suffix
+    parent = path.parent
+    counter = 2
+
+    while True:
+        new_path = parent / f"{stem}_{counter}{suffix}"
+        if not new_path.exists():
+            return new_path
+        counter += 1

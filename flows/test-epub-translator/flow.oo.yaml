@@ -1,7 +1,7 @@
 title: "%test-epub-translator%"
 nodes:
-  - node_id: book-translator#1
-    title: "EPUB 翻译器 #1"
+  - node_id: book-translator#2
+    title: "EPUB 翻译器 #2"
     inputs_from:
       - handle: source_epub
       - handle: target_language

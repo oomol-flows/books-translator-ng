@@ -64,6 +64,7 @@ inputs_def:
       minimum: 350
     nullable: false
     value: 2600
+    description: "%maximum-tokens-per-translation-group%"
 
   - handle: translated_path
     description: "%path-where-the-translated-epub-will-be-saved-defaults-to-session%"

@@ -1,5 +1,5 @@
 {
-  "display-name": "电子书翻译",
+  "display-name": "EPUB 翻译",
   "description": "将数字 EPUB 书籍转换为任意语言，同时保持格式，并创建双语输出，以 便于阅读。",
   "test-epub-translator": "测试 EPUB 翻译器",
   "epub-translator": "EPUB 翻译器",
@@ -19,5 +19,6 @@
   "number-of-retry-attempts-for-failed-llm-calls": "失败的 LLM 调用的重试次数",
   "interval-between-retries-in-seconds": "重试间隔（秒）",
   "number-of-concurrent-translation-processes-1-10": "并发翻译进程数量（1-10）",
-  "translation-output-mode-append-or-replace": "翻译输出模式（追加双语块或替换原文）"
+  "translation-output-mode-append-or-replace": "翻译输出模式（追加双语块或替换原文）",
+  "maximum-tokens-per-translation-group": "每组翻译的最大 tokens 数"
 }

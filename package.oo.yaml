@@ -1,4 +1,4 @@
-version: 1.1.2
+version: 1.1.3
 scripts:
   bootstrap: |-
     poetry install --no-root
@@ -7,61 +7,4 @@ name: books-translator
 displayName: "%display-name%"
 description: "%description%"
 repository: https://github.com/oomol-flows/books-translator-ng.git
-releaseNotes: |
-  ## v1.1.1
-
-  ### Dependency Updates
-  - Upgraded epub-translator from 0.1.4 to 0.1.6
-
-  ### Bug Fixes from epub-translator v0.1.5
-  - **Fixed Critical Crash**: Resolved ValueError: Element not found in parent crash when processing EPUB files with nested inline elements (e.g., `<math>` inside `<span>`)
-  - Improved stability for complex platform structures with nested inline elements
-
-  ## v1.0.6
-
-  ### Bug Fixes
-  - **Fixed Progress Reset Issue**: Removed unnecessary progress reset during fallback mode retries. Progress will no longer jump back to 0% during automatic mode switching
-  - **Improved Fallback Logic**: Optimized fallback mode sequence to avoid redundant attempts
-
-  ## v1.0.5
-
-  ### Improvements
-  - **Enhanced Error Recovery**: Now automatically tries all three submission modes (Single Language, Bilingual, Bilingual Inline) as fallbacks when encountering XML structure errors
-  - Improved error messages with actionable solutions including preprocessing suggestions
-  - Better progress reporting during fallback attempts
-
-  ## v1.0.4
-
-  ### Bug Fixes
-  - **Improved Error Handling**: Fixed issue where fallback retry logic for complex EPUB structures was not properly handling nested exceptions
-  - Better error messages when translation fails due to complex XML structures
-
-  ## v1.0.3
-
-  ### Dependency Updates
-  - Upgraded epub-translator from 0.1.3 to 0.1.4
-
-  ### New Features
-  - **Translation Submission Modes**: Choose between three translation output formats:
-    - **Bilingual (Recommended)**: Append translations as separate paragraphs with clear separation (APPEND_BLOCK)
-    - **Single Language**: Replace original text with translation only (REPLACE)
-    - **Bilingual Inline**: Append translations as inline text for continuous flow (APPEND_TEXT)
-
-  ### Improvements from epub-translator v0.1.4
-  - Platform Nodes Support: Better handling of complex EPUB structures with interleaved text content
-  - Non-Inline Element Preservation: Images and other non-inline elements are preserved when using single-language mode
-  - Quote Normalization: Automatic conversion of special quotation marks to standard quotes in TOC and metadata
-  - Enhanced compatibility with French guillemets (« », ‹ ›) and Chinese book title marks (《》, 〈〉)
-
-  ## v1.0.2
-
-  ### Dependency Updates
-  - Upgraded epub-translator from 0.1.1 to 0.1.3
-
-  ### Improvements from epub-translator v0.1.3
-  - Enhanced EPUB compatibility with better media type recognition
-  - Improved handling of non-standard EPUB formats with self-closing tag normalization
-  - Fixed mimetype file position in EPUB archives per OCF specification
-  - Enhanced fill template algorithm with better semantic matching
-  - Added cache seed content support for smarter cache invalidation
-  - Optimized stream processing and fragment merging logic
+releaseNotes: "feat: upgrade dependencies & reconstruct block panel"

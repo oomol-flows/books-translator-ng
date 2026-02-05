@@ -1,26 +1,53 @@
-# Books Translator
+# EPUB Translator
 
-Transform your digital books into any language you want to read, making world literature accessible to everyone.
+<div align="center">
+
+![Translation Effect](https://raw.githubusercontent.com/oomol-lab/epub-translator/refs/heads/main/screenshots/translate-effect.png)
+
+[![Watch the Tutorial](https://img.youtube.com/vi/RTHDdvOTS0I/0.jpg)](https://www.youtube.com/watch?v=RTHDdvOTS0I)
+
+*Click to watch the tutorial video*
+
+</div>
+
+Transform your digital books into any language you want to read, making world literature accessible to everyone. This OOMOL block provides a visual, no-code interface to translate EPUB books while preserving their structure and formatting.
 
 ## What This Does
 
-Have you ever found an amazing book that's only available in a language you don't speak fluently? This tool solves that problem. It takes your digital books (in EPUB format) and translates them into your preferred language, making reading accessible and enjoyable in the language you're most comfortable with.
+Have you ever found an amazing book that's only available in a language you don't speak fluently? This block solves that problem. It takes your digital books (in EPUB format) and translates them into your preferred language through an intuitive visual workflow, making reading accessible and enjoyable in the language you're most comfortable with.
 
 Whether it's a bestseller from another country, academic material, or a classic work of literature, you can now read it in your language without waiting for official translations.
 
-## Why Use This
+## Why Use This Block
 
+- **Visual workflow interface** - No coding required, simply drag and connect blocks to create your translation pipeline
 - **Read books in your native language** - No more struggling with foreign language books or missing out on great content
 - **Keep the original alongside the translation** - See both languages side-by-side, perfect for language learners who want to improve while reading
 - **Preserve the book's look and feel** - The translated book maintains the same formatting, structure, and reading experience as the original
 - **Support for many languages** - Translate to and from English, Chinese, Spanish, French, German, Japanese, Korean, Portuguese, Russian, Italian, Arabic, and Hindi
 - **Fast and reliable** - Intelligent translation that handles complex book structures and maintains consistency throughout
+- **Real-time progress monitoring** - Watch your translation progress visually in the OOMOL interface
 
-## What You Can Do
+## Getting Started with OOMOL
 
-### Translate Complete Books
+### Installation
 
-Simply select any EPUB book file from your device, choose the language you want it translated into, and let the tool do the work. The translator processes your entire book chapter by chapter, maintaining the story flow and structure. In minutes, you'll have a fully translated version ready to read on your favorite e-reader or reading app.
+1. Open OOMOL Studio
+2. Search for `books-translator` in the package marketplace
+3. Click "Install" to add the block to your workspace
+4. The block will appear in your block panel, ready to use
+
+### Basic Usage
+
+1. **Add the Block** - Drag the "Books Translator" block onto your canvas
+2. **Configure Inputs**:
+   - **Source EPUB**: Click the file picker to select your EPUB book
+   - **Target Language**: Choose from 12 supported languages (default: Chinese)
+   - **Submit Mode**: Select "Append" for bilingual output or "Replace" for translation only
+3. **Run the Flow** - Click the run button and watch the progress
+4. **Get Your Book** - The translated EPUB will be saved to your specified location
+
+## Features
 
 ### Two Translation Modes
 
@@ -30,47 +57,81 @@ Choose how you want your translated book to look:
 
 - **Replace Mode** - Creates a clean translated version with only the target language. Ideal when you simply want to read the book in your language without the original text.
 
-### Perfect for Language Learners
+### Supported Languages
 
-Because the tool can create bilingual output (showing both the original and translation together), it's ideal for students and language enthusiasts. You can read in your target language while having the translation as reference. This makes it easier to pick up vocabulary, understand sentence structures, and learn naturally through reading materials you're interested in.
+The block supports translation between these languages:
+- English
+- Chinese (Simplified)
+- Spanish
+- French
+- German
+- Japanese
+- Korean
+- Portuguese
+- Russian
+- Italian
+- Arabic
+- Hindi
 
-### Customize Your Translation
+### Advanced Options
 
-Have specific needs? You can add custom instructions to guide the translation style. For example:
+For power users who want more control, the block provides advanced settings:
 
-- Keep character names in their original form
-- Use formal or casual language tone
-- Preserve cultural references in a certain way
-- Maintain specific terminology for technical or academic books
-- Adjust the translation style for children's books or adult content
+- **Concurrency (1-8)** - Control how many sections are translated simultaneously. Higher values speed up translation but use more resources. Default: 4
 
-### Advanced Features for Power Users
+- **Max Group Tokens (≥350)** - Control the size of text chunks sent for translation. Larger values may improve context understanding but take longer per chunk. Default: 2600
 
-The translator offers fine-tuning options for those who want more control:
+- **Custom Prompt** - Add specific instructions to guide the translation style:
+  - "Keep character names in their original form"
+  - "Use formal language tone"
+  - "Preserve cultural references"
+  - "Maintain technical terminology"
+  - "Adjust for children's reading level"
 
-- **Adjust translation speed** - Process multiple sections at once to speed up translation of longer books
-- **Control translation quality** - Fine-tune how the translation balances creativity with accuracy
-- **Choose where to save** - Decide exactly where your translated book should be saved
+- **Translated Path** - Choose where to save your translated book. If not specified, it will be saved in the session directory
 
-## How It Works for You
+- **LLM Configuration** - Fine-tune the translation model settings:
+  - Model selection (default: deepseek-chat)
+  - Temperature (0-1): Controls creativity vs consistency
+  - Top P (0-1): Controls response diversity
+  - Max Tokens: Maximum length of translation output
 
-1. **Choose your book** - Pick any EPUB file from your computer
-2. **Select your language** - Choose from 12 different languages
-3. **Pick your format** - Decide whether you want bilingual output or translation only
-4. **Start translating** - Watch the progress as your book is being translated section by section
-5. **Read and enjoy** - Open your newly translated book in any EPUB reader
+## Building Translation Workflows
 
-The entire process respects your book's original structure, so you get a professional-quality translated book that looks and feels just like a published translation.
+Since this is an OOMOL block, you can combine it with other blocks to create powerful workflows:
 
-## Who This Is For
+### Simple Translation
 
-- **Avid readers** who want to enjoy books not available in their language
-- **Students** learning a new language who want reading practice with support
-- **Parents** who want to read books to their children in a specific language
-- **Travelers** who collect books from different countries and want to understand them
-- **Researchers** who need to access academic content across language barriers
-- **Book clubs** that want to read international bestsellers before official translations
-- **Anyone** curious about literature from other cultures
+```
+[File Input] → [Books Translator] → [File Output]
+```
+
+### Batch Translation
+
+```
+[File List] → [For Each Loop] → [Books Translator] → [Collect Results]
+```
+
+### Translation with Notification
+
+```
+[File Input] → [Books Translator] → [Send Email Notification]
+                                   → [Upload to Cloud Storage]
+```
+
+### Pre-processing Pipeline
+
+```
+[EPUB Input] → [Validate Format] → [Books Translator] → [Quality Check] → [Output]
+```
+
+## Tips for Best Results
+
+- **Book quality matters** - Books with clean, well-formatted text translate better than those with formatting issues
+- **Be patient with long books** - Novels and longer works take more time, but the quality is worth the wait. A typical novel takes 5-15 minutes depending on length
+- **Try custom instructions** - If the first translation isn't quite what you want, add specific guidance in the Custom Prompt field and try again
+- **Use bilingual mode for learning** - Even if you're fluent in the target language, seeing both versions helps you appreciate translation choices
+- **Monitor progress** - The OOMOL interface shows real-time progress, so you can see exactly which sections are being translated
 
 ## What Makes It Special
 
@@ -85,35 +146,43 @@ The translation process is smart enough to:
 - Handle complex book structures including footnotes, tables of contents, and multi-part stories
 - Adapt to different book genres, from fiction to technical manuals
 
-The tool uses advanced language understanding to ensure translations feel natural and readable, not mechanical or awkward like basic translation tools.
+The block uses advanced language understanding to ensure translations feel natural and readable, not mechanical or awkward like basic translation tools.
 
-## Working with Other Tools
+## Technical Details
 
-While this tool focuses specifically on translating EPUB books, you might find it useful to combine it with other workflow tools:
+This block is a visual wrapper around the [epub-translator](https://github.com/oomol-lab/epub-translator) library, designed specifically for the OOMOL visual programming environment. It provides:
 
-- After translating a book, you could extract specific sections for study materials
-- Language learners might want to create flashcards from the bilingual output
-- Researchers could compile translations of multiple books or chapters into collections
-- You could convert translated EPUBs to other reading formats for different devices
+- Automatic progress reporting through the OOMOL context
+- Visual preview of translation progress
+- Seamless integration with other OOMOL blocks
+- File path handling compatible with OOMOL's session management
 
-The translated book you get is a standard EPUB file, so it works with any tool that handles EPUB files.
+## Who This Is For
 
-## Getting Started
+- **Avid readers** who want to enjoy books not available in their language
+- **Students** learning a new language who want reading practice with support
+- **Parents** who want to read books to their children in a specific language
+- **Travelers** who collect books from different countries and want to understand them
+- **Researchers** who need to access academic content across language barriers
+- **Book clubs** that want to read international bestsellers before official translations
+- **Visual programmers** who prefer no-code solutions over writing Python scripts
+- **Anyone** curious about literature from other cultures
 
-All you need is:
+## Requirements
 
+- An OOMOL Studio installation
 - An EPUB book file you want to translate
-- A few minutes to let the translation complete (time varies based on book length - a typical novel takes 5-15 minutes)
+- A few minutes to let the translation complete (time varies based on book length)
 - An e-reader or reading app to enjoy your translated book (like Apple Books, Google Play Books, Calibre, or any EPUB-compatible app)
 
-The tool handles everything else automatically, from understanding the book's structure to ensuring the translation flows naturally.
+## Support
 
-## Tips for Best Results
+- For block-specific issues, please report at: https://github.com/oomol-flows/books-translator-ng/issues
+- For the underlying translation library: https://github.com/oomol-lab/epub-translator/issues
+- For OOMOL Studio questions: https://oomol.com
 
-- **Book quality matters** - Books with clean, well-formatted text translate better than those with formatting issues
-- **Be patient with long books** - Novels and longer works take more time, but the quality is worth the wait
-- **Try custom instructions** - If the first translation isn't quite what you want, add specific guidance and try again
-- **Use bilingual mode for learning** - Even if you're fluent in the target language, seeing both versions helps you appreciate translation choices
-- **Save your settings** - Once you find settings that work well for your needs, you can reuse them for future books
+## License
 
-Start exploring literature from around the world in the language that speaks to you!
+This OOMOL block is open source. The underlying epub-translator library is also open source.
+
+Start exploring literature from around the world in the language that speaks to you - all through a simple visual interface!

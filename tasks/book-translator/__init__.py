@@ -14,6 +14,7 @@ class Outputs(typing.TypedDict):
     translated_path: typing.NotRequired[str]
 #endregion
 
+from openai import APIStatusError
 from oocana import Context
 from pathlib import Path
 from epub_translator import LLM, translate, SubmitKind
@@ -57,19 +58,28 @@ async def main(params: Inputs, context: Context) -> Outputs:
 
     translated_path.parent.mkdir(parents=True, exist_ok=True)
 
-    translate(
-        translation_llm=translation_llm,
-        fill_llm=fill_llm,
-        source_path=source_path,
-        target_path=translated_path,
-        target_language=target_language,
-        submit=SubmitKind[params["submit_mode"]],
-        user_prompt=params.get("custom_prompt", None),
-        max_group_tokens=params["max_group_tokens"],
-        concurrency=params["concurrency"],
-        on_progress=on_progress,
-    )
-    context.report_progress(100)
+    try:
+        translate(
+            translation_llm=translation_llm,
+            fill_llm=fill_llm,
+            source_path=source_path,
+            target_path=translated_path,
+            target_language=target_language,
+            submit=SubmitKind[params["submit_mode"]],
+            user_prompt=params.get("custom_prompt", None),
+            max_group_tokens=params["max_group_tokens"],
+            concurrency=params["concurrency"],
+            on_progress=on_progress,
+        )
+        context.report_progress(100)
+    except APIStatusError as err:
+        error_message: str = ""
+        try:
+            error_message = err.response.text.strip()
+        except Exception:
+            pass
+
+        raise RuntimeError(f"translate failed with API error: {error_message}") from err
 
     return { "translated_path": str(translated_path) }
 
